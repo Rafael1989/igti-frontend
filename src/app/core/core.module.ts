@@ -4,6 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { UsuarioService } from './../usuario/usuario.service';
+import { PerfilService } from './../perfil/perfil.service';
+import { PratoService } from './../cozinheira/prato.service';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -39,6 +42,7 @@ registerLocaleData(localePt);
     ConfirmDialogModule
   ],
   providers: [
+    PratoService,
     ErrorHandlerService,
     AuthService,
     MoneyHttp,
@@ -46,6 +50,8 @@ registerLocaleData(localePt);
     ConfirmationService,
     MessageService,
     JwtHelperService,
+    UsuarioService,
+    PerfilService,
     Title,
     { provide: LOCALE_ID, useValue: 'pt' }
   ]

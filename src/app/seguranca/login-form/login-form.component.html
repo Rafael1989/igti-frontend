@@ -20,6 +20,7 @@
       <div class="ui-g-12">
         <button pButton type="submit" label="Login" [disabled]="!f.valid"
           (click)="login(usuario.value, senha.value); senha.value = '';"></button>
+          <a routerLink="/usuarios">Register</a>
       </div>
 
     </div>

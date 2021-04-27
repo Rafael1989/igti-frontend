@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from './../auth.service';
 
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -20,7 +21,12 @@ export class LoginFormComponent {
   login(usuario: string, senha: string) {
     this.auth.login(usuario, senha)
       .then(() => {
-        this.router.navigate(['/dashboard']);
+        if(this.auth.jwtPayload?.perfil == 2){
+          this.router.navigate(['/pratos']);
+        }else{
+          this.router.navigate(['/usuarios']);
+        }
+        
       })
       .catch(erro => {
         this.errorHandler.handle(erro);
