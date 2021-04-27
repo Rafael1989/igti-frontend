@@ -59,6 +59,8 @@ export class PratoService {
   }
 
   atualizar(prato: Prato): Promise<Prato> {
+    prato.usuario = new Usuario();
+    prato.usuario.codigo = this.auth.jwtPayload?.codigo;
     return this.http.put<Prato>(`${this.pratosUrl}/${prato.codigo}`, prato)
       .toPromise()
       .then(response => {
