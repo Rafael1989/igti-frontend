@@ -1,40 +1,35 @@
-<div class="container">
+<div class="container" style="max-width: 400px; margin: auto">
   <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
-
-    <div class="p-grid">
-      <div class="p-col-12">
-        <h1>{{ editando ? 'Edição de' : 'Cadastro de' }} Pratos</h1>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <h1>SaveThePlanet</h1>
       </div>
 
-      <div class="p-col-12 p-md-9 p-fluid">
-        <label>Descrição</label>
-        <input pInputText type="text" name="descricao"
+      <div class="ui-g-12">
+        <input placeholder="Prato" pInputText type="text" name="descricao"
           formControlName="descricao">
 
         <app-message [control]="formulario.get('descricao')" error="obrigatoriedade"
           text="Informe uma descrição"></app-message>
       </div>
 
-      <div class="p-col-12 p-md-3 p-fluid">
-        <label>Preço</label>
-        <input pInputText type="text" name="valor" placeholder="0,00"
+      <div class="ui-g-12">
+        <input placeholder="Preço" pInputText type="text" name="valor" placeholder="0,00"
           currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
           formControlName="valor">
       </div>
 
-      <div class="p-col-12 p-md-9 p-fluid">
-        <label>Quantidade</label>
-        <input pInputText type="text" name="quantidade" formControlName="quantidade">
+      <div class="ui-g-12">
+        <input placeholder="Quantidade" pInputText type="text" name="quantidade" formControlName="quantidade">
 
         <app-message [control]="formulario.get('quantidade')" error="obrigatoriedade" text="Informe uma descrição"></app-message>
       </div>
 
-      <div class="p-col-12 cadastro-acoes">
-        <button pButton type="submit" label="Salvar"></button>
-        <button pButton type="button" label="Novo" class="p-button-info" (click)="novo()"></button>
-        <a routerLink="/pratos">Voltar para a pesquisa</a>
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Save"></button>
+        <button style="margin-top: 10px;" pButton type="button" label="New" class="p-button-info" (click)="novo()"></button>
+        <a routerLink="/pratos">Back to List</a>
       </div>
     </div>
-
   </form>
 </div>
