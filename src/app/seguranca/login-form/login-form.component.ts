@@ -23,6 +23,8 @@ export class LoginFormComponent {
       .then(() => {
         if(this.auth.jwtPayload?.perfil == 2){
           this.router.navigate(['/pratos']);
+        }else if(this.auth.jwtPayload?.perfil == 3){
+          this.router.navigate(['/cliente/pratos']);
         }else{
           this.router.navigate(['/usuarios']);
         }

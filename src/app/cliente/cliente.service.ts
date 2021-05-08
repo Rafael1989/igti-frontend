@@ -7,22 +7,22 @@ import { environment } from './../../environments/environment';
 import { Prato, Usuario } from './../core/model';
 import { AuthService } from './../seguranca/auth.service';
 
-export class PratoFiltro {
+export class ClienteFiltro {
   descricao: string;
   pagina = 0;
   itensPorPagina = 5;
 }
 
 @Injectable()
-export class PratoService {
+export class ClienteService {
 
   pratosUrl: string;
 
   constructor(private http: HttpClient, private auth: AuthService) {
-    this.pratosUrl = `${environment.apiUrl}/pratos`;
+    this.pratosUrl = `${environment.apiUrl}/cliente/pratos`;
   }
 
-  pesquisar(filtro: PratoFiltro): Promise<any> {
+  pesquisar(filtro: ClienteFiltro): Promise<any> {
     let params = new HttpParams()
       .set('page', filtro.pagina.toString())
       .set('size', filtro.itensPorPagina.toString());
@@ -31,7 +31,7 @@ export class PratoService {
       params = params.set('descricao', filtro.descricao);
     }
 
-    return this.http.get(`${this.pratosUrl}/resumir/${this.auth.jwtPayload?.codigo}?resumo`, { params })
+    return this.http.get(`${this.pratosUrl}/resumir?resumo`, { params })
       .toPromise()
       .then(response => {
         const pratos = response['content'];
@@ -45,40 +45,17 @@ export class PratoService {
       });
   }
 
-  excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.pratosUrl}/${codigo}`)
-      .toPromise()
-      .then(() => null);
-  }
-
-  adicionar(prato: Prato): Promise<Prato> {
-    prato.cozinheira = new Usuario();
-    prato.cozinheira.codigo = this.auth.jwtPayload?.codigo;
+  comprar(prato: Prato): Promise<Prato> {
     prato.status = "";
-    return this.http.post<Prato>(this.pratosUrl, prato)
-      .toPromise();
-  }
-
-  atualizar(prato: Prato): Promise<Prato> {
+    prato.cliente = new Usuario();
+    prato.cliente.codigo = this.auth.jwtPayload?.codigo;
     prato.cozinheira = new Usuario();
-    prato.cozinheira.codigo = this.auth.jwtPayload?.codigo;
-    prato.status = "";
     return this.http.put<Prato>(`${this.pratosUrl}/${prato.codigo}`, prato)
       .toPromise()
       .then(response => {
         const pratoAlterado = response;
 
         return pratoAlterado;
-      });
-  }
-
-  buscarPorCodigo(codigo: number): Promise<Prato> {
-    return this.http.get<Prato>(`${this.pratosUrl}/${codigo}`)
-      .toPromise()
-      .then(response => {
-        const prato = response;
-
-        return prato;
       });
   }
 

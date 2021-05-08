@@ -8,6 +8,7 @@ import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.compo
 const routes: Routes = [
   { path: 'usuarios', loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioModule) },
   { path: 'pratos', loadChildren: () => import('./cozinheira/prato.module').then(m => m.PratoModule) },
+  { path: 'cliente/pratos', loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule) },
 
   { path: '', redirectTo: 'pratos', pathMatch: 'full' },
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },

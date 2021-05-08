@@ -19,6 +19,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { MoneyHttp } from '../seguranca/money-http';
+import { ClienteService } from '../cliente/cliente.service';
 
 registerLocaleData(localePt);
 
@@ -43,6 +44,7 @@ registerLocaleData(localePt);
   ],
   providers: [
     PratoService,
+    ClienteService,
     ErrorHandlerService,
     AuthService,
     MoneyHttp,

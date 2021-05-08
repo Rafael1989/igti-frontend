@@ -45,6 +45,7 @@ export class PratoCadastroComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       codigo: [],
       descricao: [null, this.validarObrigatoriedade],
+      status: [],
       valor: [ null, Validators.required ],
       quantidade: [ null, Validators.required ]
     });

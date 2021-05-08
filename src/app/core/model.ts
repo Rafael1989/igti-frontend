@@ -14,8 +14,10 @@ export class Usuario {
 export class Prato {
     codigo: number;
     descricao: string;
+    status: string;
     valor: number;
     quantidade: string;
-    usuario = new Usuario();
+    cozinheira = new Usuario();
+    cliente = new Usuario();
 }
   
