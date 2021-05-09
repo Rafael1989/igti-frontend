@@ -20,6 +20,7 @@ import { NaoAutorizadoComponent } from './nao-autorizado.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { MoneyHttp } from '../seguranca/money-http';
 import { ClienteService } from '../cliente/cliente.service';
+import { EntregadorService } from '../entregador/entregador.service';
 
 registerLocaleData(localePt);
 
@@ -45,6 +46,7 @@ registerLocaleData(localePt);
   providers: [
     PratoService,
     ClienteService,
+    EntregadorService,
     ErrorHandlerService,
     AuthService,
     MoneyHttp,

@@ -19,5 +19,6 @@ export class Prato {
     quantidade: string;
     cozinheira = new Usuario();
     cliente = new Usuario();
+    entregador = new Usuario();
 }
   

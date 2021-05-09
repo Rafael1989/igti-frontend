@@ -4,24 +4,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
-import { AuthService } from './../../seguranca/auth.service';
-import { ErrorHandlerService } from './../../core/error-handler.service';
-import { PratoService, PratoFiltro } from './../prato.service';
+import { AuthService } from '../../seguranca/auth.service';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+import { EntregadorService, EntregadorFiltro } from '../entregador.service';
 
 @Component({
-  selector: 'app-prato-pesquisa',
-  templateUrl: './prato-pesquisa.component.html',
-  styleUrls: ['./prato-pesquisa.component.css']
+  selector: 'app-entregador-pesquisa',
+  templateUrl: './entregador-pesquisa.component.html',
+  styleUrls: ['./entregador-pesquisa.component.css']
 })
-export class PratoPesquisaComponent implements OnInit {
+export class EntregadorPesquisaComponent implements OnInit {
 
   totalRegistros = 0;
-  filtro = new PratoFiltro();
+  filtro = new EntregadorFiltro();
   pratos = [];
   @ViewChild('tabela') grid: Table;
 
   constructor(
-    private pratoService: PratoService,
+    private entregadorService: EntregadorService,
     public auth: AuthService,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
@@ -36,7 +36,7 @@ export class PratoPesquisaComponent implements OnInit {
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
 
-    this.pratoService.pesquisar(this.filtro)
+    this.entregadorService.pesquisar(this.filtro)
       .then(resultado => {
         this.totalRegistros = resultado.total;
         this.pratos = resultado.pratos;
@@ -49,26 +49,26 @@ export class PratoPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  confirmarExclusao(prato: any) {
+  confirmarEntrega(prato: any) {
     this.confirmation.confirm({
-      message: 'Tem certeza que deseja excluir?',
+      message: 'Tem certeza que deseja entregar?',
       accept: () => {
-        this.excluir(prato);
+        this.entregar(prato);
       }
     });
   }
 
-  confirmarPronto(prato: any) {
+  confirmarPagamento(prato: any) {
     this.confirmation.confirm({
-      message: 'O prato está pronto para entrega?',
+      message: 'A encomenda foi paga?',
       accept: () => {
-        this.pronto(prato);
+        this.pagar(prato);
       }
     });
   }
 
-  excluir(prato: any) {
-    this.pratoService.excluir(prato.codigo)
+  entregar(prato: any) {
+    this.entregadorService.entregar(prato)
       .then(() => {
         if (this.grid.first === 0) {
           this.pesquisar();
@@ -76,13 +76,13 @@ export class PratoPesquisaComponent implements OnInit {
           this.grid.reset();
         }
 
-        this.messageService.add({ severity: 'success', detail: 'Prato excluído com sucesso!' });
+        this.messageService.add({ severity: 'success', detail: 'Registro para entregar efetuado com sucesso!' });
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  pronto(prato: any) {
-    this.pratoService.pronto(prato)
+  pagar(prato: any) {
+    this.entregadorService.pagar(prato)
       .then(() => {
         if (this.grid.first === 0) {
           this.pesquisar();
@@ -90,7 +90,7 @@ export class PratoPesquisaComponent implements OnInit {
           this.grid.reset();
         }
 
-        this.messageService.add({ severity: 'success', detail: 'Prato está pronto para entrega com sucesso!' });
+        this.messageService.add({ severity: 'success', detail: 'Prato pago com sucesso!' });
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
