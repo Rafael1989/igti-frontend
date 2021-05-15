@@ -1,0 +1,41 @@
+<div class="container" style="max-width: 400px; margin: auto">
+    <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
+  
+      <div class="ui-g ui-fluid">
+        <div class="p-col-12">
+          <h1>SaveThePlanet</h1>
+        </div>
+  
+        <div class="ui-g-12">
+          <input pInputText type="text" name="nome" placeholder="Nome" formControlName="nome"
+            required #nome>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="email" name="email" placeholder="E-mail" formControlName="email"
+            required #nome>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="password" name="senha" placeholder="Senha" formControlName="senha"
+            required #nome>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="cpf" placeholder="Cpf" formControlName="cpf"
+            required #cpf>
+        </div>
+
+        <div class="ui-g-12" formGroupName="perfil">
+          <p-dropdown name="perfil" [options]="perfis" placeholder="Selecione" formControlName="codigo"></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <button pButton type="submit" label="Save"></button>
+          <a routerLink="/admin/usuarios">Back to List</a>
+        </div>
+      </div>
+  
+    </form>
+  </div>
+  

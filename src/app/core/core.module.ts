@@ -21,6 +21,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
 import { MoneyHttp } from '../seguranca/money-http';
 import { ClienteService } from '../cliente/cliente.service';
 import { EntregadorService } from '../entregador/entregador.service';
+import { AdminService } from '../admin/admin.service';
 
 registerLocaleData(localePt);
 
@@ -55,6 +56,7 @@ registerLocaleData(localePt);
     MessageService,
     JwtHelperService,
     UsuarioService,
+    AdminService,
     PerfilService,
     Title,
     { provide: LOCALE_ID, useValue: 'pt' }

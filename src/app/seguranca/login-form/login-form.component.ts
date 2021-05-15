@@ -28,7 +28,7 @@ export class LoginFormComponent {
         } else if(this.auth.jwtPayload?.perfil == 4){
           this.router.navigate(['/entregador/pratos']);
         }else{
-          this.router.navigate(['/usuarios']);
+          this.router.navigate(['/admin/pratos']);
         }
         
       })
