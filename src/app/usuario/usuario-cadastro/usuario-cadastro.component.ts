@@ -17,7 +17,12 @@ import { PerfilService } from './../../perfil/perfil.service';
 export class UsuarioCadastroComponent implements OnInit {
 
   perfis = [];
+  paises = [];
+  estados = [];
+  cidades = [];
   formulario: FormGroup;
+  paisSelecionado: number;
+  estadoSelecionado: number;
 
   constructor(
     private perfilService: PerfilService,
@@ -31,7 +36,31 @@ export class UsuarioCadastroComponent implements OnInit {
   ngOnInit() {
     this.configurarFormulario();
 
+    this.carregarPaises();
+
     this.carregarPerfis();
+  }
+
+  carregarPaises() {
+    this.usuarioService.listarPaises().then(lista => {
+      this.paises = lista.map(pais => ({ label: pais.nome, value: pais.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarEstados(pais) {
+    console.log(pais);
+    this.usuarioService.pesquisarEstados(pais).then(lista => {
+      this.estados = lista.map(estado => ({ label: estado.nome, value: estado.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarCidades(estado) {
+    this.usuarioService.pesquisarCidades(estado).then(lista => {
+      this.cidades = lista.map(c => ({ label: c.nome, value: c.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 
   configurarFormulario() {
@@ -43,7 +72,15 @@ export class UsuarioCadastroComponent implements OnInit {
       perfil: this.formBuilder.group({
         codigo: [ null, Validators.required ],
         nome: []
-      })
+      }),
+      cidade: this.formBuilder.group({
+        codigo: [ null, Validators.required ],
+        nome: []
+      }),
+      bairro: [null, this.validarObrigatoriedade ],
+      rua: [null, this.validarObrigatoriedade ],
+      numero: [null, this.validarObrigatoriedade ],
+      complemento: [null, this.validarObrigatoriedade ],
     });
   }
 

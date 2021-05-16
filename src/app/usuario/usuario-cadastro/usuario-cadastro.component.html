@@ -27,7 +27,39 @@
         </div>
 
         <div class="ui-g-12" formGroupName="perfil">
-          <p-dropdown name="perfil" [options]="perfis" placeholder="Selecione" formControlName="codigo"></p-dropdown>
+          <p-dropdown name="perfil" [options]="perfis" [filter]="true" placeholder="Selecione" formControlName="codigo" required></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <p-dropdown placeholder="Selecione" [filter]="true" [options]="paises" name="paisSelecionado" #pais (onChange)="carregarEstados(pais.value)" required></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <p-dropdown placeholder="Selecione" [filter]="true" [options]="estados" name="estadoSelecionado" (onChange)="carregarCidades(estado.value)" #estado required [disabled]="!pais.value"></p-dropdown>
+        </div>
+
+        <div class="ui-g-12" formGroupName="cidade">
+          <p-dropdown placeholder="Selecione" [filter]="true" [options]="cidades" formControlName="codigo" name="cidade" required [disabled]="!estado.value"></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="bairro" placeholder="Bairro" formControlName="bairro"
+            required #bairro>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="rua" placeholder="Rua" formControlName="rua"
+            required #rua>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="numero" placeholder="Número" formControlName="numero"
+            required #numero>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="complemento" placeholder="Complemento" formControlName="complemento"
+            required #complemento>
         </div>
 
         <div class="ui-g-12">

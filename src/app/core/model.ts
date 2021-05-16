@@ -2,6 +2,23 @@ export class Perfil {
     codigo: number;
 }
 
+export class Pais {
+    codigo: number;
+    nome: string;
+}
+
+export class Estado {
+    codigo: number;
+    nome: string;
+    pais = new Pais();
+}
+
+export class Cidade {
+    codigo: number;
+    nome: string;
+    estado = new Estado();
+}
+
 export class Usuario {
     codigo: number;
     nome: string;

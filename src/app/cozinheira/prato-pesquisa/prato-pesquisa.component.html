@@ -34,13 +34,13 @@
           <th>Descrição</th>
           <th class="col-valor-header">Valor</th>
           <th class="col-valor-header">Quantidade</th>
+          <th class="col-valor-header">Status</th>
           <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-prato>
         <tr>
           <td>
-            <span class="p-column-title">Descrição</span>
             {{ prato.descricao }}
           </td>
           <td class="col-valor">
@@ -48,13 +48,15 @@
             {{ prato.valor | number:'1.2-2' }}
           </td>
           <td>
-            <span class="p-column-title">Quantidade</span>
             {{ prato.quantidade }}
+          </td>
+          <td>
+            {{ prato.status }}
           </td>
           <td class="col-acoes">
             <span class="p-column-title"></span>
-            <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pratos', prato.codigo]"></a>
-            <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(prato)"></button>
+            <button pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pratos', prato.codigo]" [disabled]="prato.status !== 'DISPONÍVEL'"></button>
+            <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(prato)" [disabled]="prato.status !== 'DISPONÍVEL'"></button>
             <button pButton icon="pi pi-check-square" pTooltip="Pronto" tooltipPosition="top" (click)="confirmarPronto(prato)" [disabled]="prato.status !== 'COMPRADO'"></button>
           </td>
         </tr>
