@@ -17,7 +17,7 @@
   </form>
 
   <div class="ui-g-12">
-    <p-table [value]="usuarios" [responsive]="true"
+    <p-table [value]="usuarios" [responsive]="true" class="teste"
         [paginator]="true" [rows]="filtro.itensPorPagina"
         [lazy]="true" [totalRecords]="totalRegistros"
         (onLazyLoad)="aoMudarPagina($event)"
@@ -31,26 +31,54 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th>Nome</th>
-          <th>Email</th>
+          <th class="col-valor-header">Nome</th>
+          <th class="col-valor-header">Email</th>
           <th class="col-valor-header">CPF</th>
           <th class="col-valor-header">Perfil</th>
+          <th>País</th>
+          <th>Estado</th>
+          <th>Cidade</th>
+          <th>Bairro</th>
+          <th>Rua</th>
+          <th>Número</th>
+          <th>Complemento</th>
           <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-usuario>
         <tr>
-          <td>
+          <td class="col-valor" >
             {{ usuario.nome }}
           </td>
-          <td>
+          <td class="col-valor">
             {{ usuario.email }}
           </td>
-          <td>
+          <td class="col-valor">
             {{ usuario.cpf }}
           </td>
-          <td>
+          <td class="col-valor">
             {{ usuario.perfil.codigo }}
+          </td>
+          <td>
+            {{ usuario.cidade.estado.pais.nome }}
+          </td>
+          <td>
+            {{ usuario.cidade.estado.nome }}
+          </td>
+          <td>
+            {{ usuario.cidade.nome }}
+          </td>
+          <td>
+            {{ usuario.bairro }}
+          </td>
+          <td>
+            {{ usuario.rua }}
+          </td>
+          <td>
+            {{ usuario.numero }}
+          </td>
+          <td>
+            {{ usuario.complemento }}
           </td>
           <td class="col-acoes">
             <span class="p-column-title"></span>

@@ -26,6 +26,11 @@ export class Usuario {
     senha: string;
     cpf: string;
     perfil = new Perfil();
+    bairro: string;
+    rua: string;
+    numero: string;
+    complemento: string;
+    cidade = new Cidade();
 }
 
 export class Prato {

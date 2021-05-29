@@ -17,17 +17,44 @@
         </div>
 
         <div class="ui-g-12">
-          <input pInputText type="password" name="senha" placeholder="Senha" formControlName="senha"
-            required #nome>
-        </div>
-
-        <div class="ui-g-12">
           <input pInputText type="text" name="cpf" placeholder="Cpf" formControlName="cpf"
             required #cpf>
         </div>
 
         <div class="ui-g-12" formGroupName="perfil">
-          <p-dropdown name="perfil" [options]="perfis" placeholder="Selecione" formControlName="codigo"></p-dropdown>
+          <p-dropdown name="perfil" [options]="perfis" dataKey="perfil" placeholder="Selecione" formControlName="codigo"></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <p-dropdown placeholder="Selecione" [filter]="true" dataKey="cidade.estado.pais" [options]="paises" name="paisSelecionado" #pais (onChange)="carregarEstados(pais.value)" required></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <p-dropdown placeholder="Selecione" [filter]="true"  dataKey="cidade.estado" [options]="estados" name="estadoSelecionado" (onChange)="carregarCidades(estado.value)" #estado required></p-dropdown>
+        </div>
+
+        <div class="ui-g-12" formGroupName="cidade">
+          <p-dropdown placeholder="Selecione" [filter]="true" dataKey="cidade" [options]="cidades" formControlName="codigo" name="cidade" required></p-dropdown>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="bairro" placeholder="Bairro" formControlName="bairro"
+            required #bairro>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="rua" placeholder="Rua" formControlName="rua"
+            required #rua>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="numero" placeholder="Número" formControlName="numero"
+            required #numero>
+        </div>
+
+        <div class="ui-g-12">
+          <input pInputText type="text" name="complemento" placeholder="Complemento" formControlName="complemento"
+            required #complemento>
         </div>
 
         <div class="ui-g-12">

@@ -6,9 +6,9 @@ import { MessageService } from 'primeng/api';
 import { Title } from '@angular/platform-browser';
 
 import { ErrorHandlerService } from '../../core/error-handler.service';
-import { Usuario } from '../../core/model';
 import { AdminService } from './../admin.service';
 import { PerfilService } from '../../perfil/perfil.service';
+import { UsuarioService } from 'src/app/usuario/usuario.service';
 
 @Component({
   selector: 'app-admin-usuario-cadastro',
@@ -18,11 +18,17 @@ import { PerfilService } from '../../perfil/perfil.service';
 export class AdminUsuarioCadastroComponent implements OnInit {
 
   perfis = [];
+  paises = [];
+  estados = [];
+  cidades = [];
   formulario: FormGroup;
+  paisSelecionado: number;
+  estadoSelecionado: number;
 
   constructor(
     private perfilService: PerfilService,
     private adminService: AdminService,
+    private usuarioService: UsuarioService,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
     private route: ActivatedRoute,
@@ -34,6 +40,8 @@ export class AdminUsuarioCadastroComponent implements OnInit {
   ngOnInit() {
     this.configurarFormulario();
 
+    this.carregarPaises();
+
     const codigoUsuario = this.route.snapshot.params['codigo'];
 
     if (codigoUsuario) {
@@ -41,6 +49,28 @@ export class AdminUsuarioCadastroComponent implements OnInit {
     }
 
     this.carregarPerfis();
+  }
+
+  carregarPaises() {
+    this.usuarioService.listarPaises().then(lista => {
+      this.paises = lista.map(pais => ({ label: pais.nome, value: pais.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarEstados(pais) {
+    console.log(pais);
+    this.usuarioService.pesquisarEstados(pais).then(lista => {
+      this.estados = lista.map(estado => ({ label: estado.nome, value: estado.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarCidades(estado) {
+    this.usuarioService.pesquisarCidades(estado).then(lista => {
+      this.cidades = lista.map(c => ({ label: c.nome, value: c.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 
   configurarFormulario() {
@@ -53,7 +83,15 @@ export class AdminUsuarioCadastroComponent implements OnInit {
       perfil: this.formBuilder.group({
         codigo: [ null, Validators.required ],
         nome: []
-      })
+      }),
+      cidade: this.formBuilder.group({
+        codigo: [ null, Validators.required ],
+        nome: []
+      }),
+      bairro: [null, this.validarObrigatoriedade ],
+      rua: [null, this.validarObrigatoriedade ],
+      numero: [null, this.validarObrigatoriedade ],
+      complemento: [null, this.validarObrigatoriedade ],
     });
   }
 
@@ -69,6 +107,8 @@ export class AdminUsuarioCadastroComponent implements OnInit {
     this.adminService.buscarPorCodigoUsuario(codigo)
       .then(usuario => {
         this.formulario.patchValue(usuario);
+        this.carregarEstados(usuario.cidade.estado.pais.codigo);
+        this.carregarCidades(usuario.cidade.estado.codigo);
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
