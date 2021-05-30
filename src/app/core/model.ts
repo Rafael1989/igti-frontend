@@ -43,4 +43,3 @@ export class Prato {
     cliente = new Usuario();
     entregador = new Usuario();
 }
-  

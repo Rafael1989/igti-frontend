@@ -48,14 +48,18 @@
             {{ prato.valor | number:'1.2-2' }}
           </td>
           <td class="col-valor">
-            {{ prato.quantidade }}
+            <button pButton icon="pi pi-plus" pTooltip="Adicionar" tooltipPosition="top" (click)="adicionarQuantidade(prato)"></button>
+            {{prato.quantidade}}
+            <button pButton icon="pi pi-minus" pTooltip="Remover" tooltipPosition="top" (click)="removerQuantidade(prato)"></button>
           </td>
           <td class="col-acoes">
             <span class="p-column-title"></span>
-            <button pButton icon="pi pi-money-bill" pTooltip="Comprar" tooltipPosition="top" (click)="confirmarCompra(prato)"></button>
+            <button pButton icon="pi pi-plus" pTooltip="Adicionar ao pedido" label="Comprar" tooltipPosition="top" (click)="adicionar(prato)"></button>
+            <button pButton icon="pi pi-minus" pTooltip="Remover do pedido" label="Remover" tooltipPosition="top" (click)="remover(prato)"></button>
           </td>
         </tr>
       </ng-template>
     </p-table>
+    <button style="margin-top: 10px; float: right;" pButton icon="pi pi-money-bill" pTooltip="Comprar" label="Finalizar Compra" tooltipPosition="top" (click)="confirmarCompra()"></button>
   </div>
 </div>

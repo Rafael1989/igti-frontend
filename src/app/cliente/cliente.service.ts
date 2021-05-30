@@ -45,12 +45,8 @@ export class ClienteService {
       });
   }
 
-  comprar(prato: Prato): Promise<Prato> {
-    prato.status = "";
-    prato.cliente = new Usuario();
-    prato.cliente.codigo = this.auth.jwtPayload?.codigo;
-    prato.cozinheira = new Usuario();
-    return this.http.put<Prato>(`${this.pratosUrl}/${prato.codigo}`, prato)
+  comprar(pratos: Prato[]): Promise<Prato> {
+    return this.http.put<Prato>(`${this.pratosUrl}/${this.auth.jwtPayload?.codigo}`, pratos)
       .toPromise()
       .then(response => {
         const pratoAlterado = response;
@@ -58,5 +54,6 @@ export class ClienteService {
         return pratoAlterado;
       });
   }
+
 
 }

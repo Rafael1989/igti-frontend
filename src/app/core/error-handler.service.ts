@@ -31,6 +31,11 @@ export class ErrorHandlerService {
         msg = 'Você não tem permissão para executar esta ação';
       }
 
+      if (errorResponse.status === 402) {
+        console.log(errorResponse);
+        msg = 'Você tentou comprar mais pratos do que estão disponíveis.';
+      }
+
       try {
         msg = errorResponse.error[0].mensagemUsuario;
       } catch (e) { }
