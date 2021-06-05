@@ -61,7 +61,6 @@ export class AdminService {
 
   atualizar(prato: Prato): Promise<Prato> {
     prato.cozinheira = new Usuario();
-    prato.status = "";
     return this.http.put<Prato>(`${this.pratosUrl}/${prato.codigo}`, prato)
       .toPromise()
       .then(response => {

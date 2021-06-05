@@ -46,7 +46,6 @@ export class EntregadorService {
   }
 
   entregar(prato: Prato): Promise<Prato> {
-    prato.status = "";
     prato.cliente = new Usuario();
     prato.cozinheira = new Usuario();
     prato.entregador = new Usuario();
@@ -61,7 +60,6 @@ export class EntregadorService {
   }
 
   pagar(prato: Prato): Promise<Prato> {
-    prato.status = "";
     prato.cliente = new Usuario();
     prato.cozinheira = new Usuario();
     prato.entregador = new Usuario();

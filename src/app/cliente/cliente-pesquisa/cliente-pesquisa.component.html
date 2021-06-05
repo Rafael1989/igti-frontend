@@ -1,20 +1,8 @@
 <div class="container">
 
-  <form autocomplete="off" (ngSubmit)="pesquisar()">
-
-    <div class="ui-g-12">
-      <h1>SaveThePlanet</h1>
-    </div>
-
-    <div class="ui-g-12">
-      <input placeholder="Descrição" pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao">
-    </div>
-
-    <div class="ui-g-12">
-      <button pButton type="submit" label="Search"></button>
-    </div>
-
-  </form>
+  <div class="ui-g-12">
+    <h1>SaveThePlanet</h1>
+  </div>
 
   <div class="ui-g-12">
     <p-table [value]="pratos" [responsive]="true"

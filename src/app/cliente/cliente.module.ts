@@ -17,6 +17,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ClientePesquisaComponent } from './cliente-pesquisa/cliente-pesquisa.component';
+import { ClienteCozinheiraPesquisaComponent } from './cliente-cozinheira-pesquisa/cliente-cozinheira-pesquisa.component';
+import { ClientePedidosPesquisaComponent } from './cliente-pedidos-pesquisa/cliente-pedidos-pesquisa.component';
+import { ClienteVendasPesquisaComponent } from './cliente-vendas-pesquisa/cliente-vendas-pesquisa.component';
 
 @NgModule({
   imports: [
@@ -40,7 +43,10 @@ import { ClientePesquisaComponent } from './cliente-pesquisa/cliente-pesquisa.co
     ClienteRoutingModule
   ],
   declarations: [
-    ClientePesquisaComponent
+    ClientePesquisaComponent,
+    ClienteCozinheiraPesquisaComponent,
+    ClientePedidosPesquisaComponent,
+    ClienteVendasPesquisaComponent
   ],
   exports: []
 })

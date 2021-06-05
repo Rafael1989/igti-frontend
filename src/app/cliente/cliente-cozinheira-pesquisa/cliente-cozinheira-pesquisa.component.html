@@ -1,0 +1,90 @@
+<div class="container">
+
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
+
+    <div class="ui-g-12">
+      <h1>Cozinheiras</h1>
+    </div>
+
+    <div class="ui-g-12">
+      <input placeholder="Nome" pInputText type="text" name="nome" [(ngModel)]="filtro.nome">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Search"></button>
+    </div>
+
+  </form>
+
+  <div class="ui-g-12">
+    <p-table [value]="usuarios" [responsive]="true" class="teste"
+        [paginator]="true" [rows]="filtro.itensPorPagina"
+        [lazy]="true" [totalRecords]="totalRegistros"
+        (onLazyLoad)="aoMudarPagina($event)"
+        #tabela>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="12">
+            Nenhum usuário encontrado
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="col-valor-header">Nome</th>
+          <th class="col-valor-header">Email</th>
+          <th class="col-valor-header">CPF</th>
+          <th class="col-valor-header">Perfil</th>
+          <th>País</th>
+          <th>Estado</th>
+          <th>Cidade</th>
+          <th>Bairro</th>
+          <th>Rua</th>
+          <th>Número</th>
+          <th>Complemento</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuario>
+        <tr>
+          <td class="col-valor" >
+            {{ usuario.nome }}
+          </td>
+          <td class="col-valor">
+            {{ usuario.email }}
+          </td>
+          <td class="col-valor">
+            {{ usuario.cpf }}
+          </td>
+          <td class="col-valor">
+            {{ usuario.perfil.codigo }}
+          </td>
+          <td>
+            {{ usuario.cidade.estado.pais.nome }}
+          </td>
+          <td>
+            {{ usuario.cidade.estado.nome }}
+          </td>
+          <td>
+            {{ usuario.cidade.nome }}
+          </td>
+          <td>
+            {{ usuario.bairro }}
+          </td>
+          <td>
+            {{ usuario.rua }}
+          </td>
+          <td>
+            {{ usuario.numero }}
+          </td>
+          <td>
+            {{ usuario.complemento }}
+          </td>
+          <td class="col-acoes">
+            <button pButton icon="pi pi-shopping-cart" pTooltip="Ver Pratos" tooltipPosition="top" [routerLink]="['/cliente/pratos/cozinheiras', usuario.codigo]"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -36,10 +36,27 @@ export class Usuario {
 export class Prato {
     codigo: number;
     descricao: string;
-    status: string;
     valor: number;
     quantidade: string;
     cozinheira = new Usuario();
     cliente = new Usuario();
     entregador = new Usuario();
+}
+
+export class Pedido {
+    codigo: number;
+    status: string;
+    cliente = new Usuario();
+    entregador = new Usuario();
+    pratos: Prato[];
+}
+
+export class Venda {
+    codigo: number;
+    pedido = new Pedido();
+    prato = new Prato();
+    quantidade: string;
+    valor: number;
+    entregador = new Usuario();
+    cozinheira = new Usuario();
 }

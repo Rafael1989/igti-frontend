@@ -13,6 +13,24 @@ export class ClienteFiltro {
   itensPorPagina = 5;
 }
 
+export class ClienteCozinheiraFiltro {
+  nome: string;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
+export class ClientePedidosFiltro {
+  codigo: number;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
+export class ClienteVendasFiltro {
+  codigo: number;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
 @Injectable()
 export class ClienteService {
 
@@ -22,7 +40,7 @@ export class ClienteService {
     this.pratosUrl = `${environment.apiUrl}/cliente/pratos`;
   }
 
-  pesquisar(filtro: ClienteFiltro): Promise<any> {
+  buscarPratosPorCodigoCozinheira(filtro: ClienteFiltro, codigo: number): Promise<any> {
     let params = new HttpParams()
       .set('page', filtro.pagina.toString())
       .set('size', filtro.itensPorPagina.toString());
@@ -31,7 +49,7 @@ export class ClienteService {
       params = params.set('descricao', filtro.descricao);
     }
 
-    return this.http.get(`${this.pratosUrl}/resumir?resumo`, { params })
+    return this.http.get(`${this.pratosUrl}/resumir/${codigo}?resumo`, { params })
       .toPromise()
       .then(response => {
         const pratos = response['content'];
@@ -52,6 +70,71 @@ export class ClienteService {
         const pratoAlterado = response;
 
         return pratoAlterado;
+      });
+  }
+
+  pesquisarUsuario(filtro: ClienteCozinheiraFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    if (filtro.nome) {
+      params = params.set('nome', filtro.nome);
+    }
+
+    return this.http.get(`${this.pratosUrl}/cozinheiras?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const usuarios = response['content'];
+
+        const resultado = {
+          usuarios,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
+  }
+
+  pesquisarPedidos(filtro: ClientePedidosFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    if (filtro.codigo) {
+      params = params.set('codigo', ""+filtro.codigo);
+    }
+
+    return this.http.get(`${this.pratosUrl}/pedidos/${this.auth.jwtPayload?.codigo}?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const pedidos = response['content'];
+
+        const resultado = {
+          pedidos,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
+  }
+
+  pesquisarVendas(filtro: ClienteVendasFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    return this.http.get(`${this.pratosUrl}/vendas/${this.auth.jwtPayload?.codigo}?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const vendas = response['content'];
+
+        const resultado = {
+          vendas,
+          total: response['totalElements']
+        };
+
+        return resultado;
       });
   }
 

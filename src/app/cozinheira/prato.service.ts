@@ -54,14 +54,12 @@ export class PratoService {
   adicionar(prato: Prato): Promise<Prato> {
     prato.cozinheira = new Usuario();
     prato.cozinheira.codigo = this.auth.jwtPayload?.codigo;
-    prato.status = "";
     return this.http.post<Prato>(this.pratosUrl, prato)
       .toPromise();
   }
 
   pronto(prato: Prato): Promise<Prato> {
     prato.cozinheira = new Usuario();
-    prato.status = "";
     return this.http.put<Prato>(`${this.pratosUrl}/pronto/${prato.codigo}`, prato)
       .toPromise()
       .then(response => {
@@ -73,7 +71,6 @@ export class PratoService {
 
   atualizar(prato: Prato): Promise<Prato> {
     prato.cozinheira = new Usuario();
-    prato.status = "";
     return this.http.put<Prato>(`${this.pratosUrl}/${prato.codigo}`, prato)
       .toPromise()
       .then(response => {

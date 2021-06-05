@@ -14,6 +14,12 @@
       *ngIf="auth.temPermissao('ROLE_ADMIN')"><a routerLink="/admin/pratos">Pratos</a></li>
     <li class="navbar-menuitem" routerLinkActive="ativo"
       *ngIf="auth.temPermissao('ROLE_ADMIN')"><a routerLink="/admin/usuarios">Usuários</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo"
+      *ngIf="auth.temPermissao('ROLE_CLIENTE')"><a routerLink="/cliente/pratos/cozinheiras">Cozinheiras</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo"
+      *ngIf="auth.temPermissao('ROLE_CLIENTE')"><a routerLink="/cliente/pratos/pedidos">Pedidos</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo"
+      *ngIf="auth.temPermissao('ROLE_CLIENTE')"><a routerLink="/cliente/pratos/vendas">Vendas</a></li>
     <li class="navbar-menuitem"><a href="javascript:;" (click)="logout()">Logout</a></li>
   </ul>
 

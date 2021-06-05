@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../../seguranca/auth.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
@@ -21,11 +22,13 @@ export class ClientePesquisaComponent implements OnInit {
   filtro = new ClienteFiltro();
   pratos = [];
   carrinhoCompras = [];
+  codigo: number;
   @ViewChild('tabela') grid: Table;
 
   constructor(
     private clienteService: ClienteService,
     public auth: AuthService,
+    private route: ActivatedRoute,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
     private confirmation: ConfirmationService,
@@ -34,22 +37,29 @@ export class ClientePesquisaComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Pesquisa de Pratos');
+
+    const codigoCozinheira = this.route.snapshot.params['codigo'];
+
+    if (codigoCozinheira) {
+      this.carregarPratos(0,codigoCozinheira);
+    }
   }
 
-  pesquisar(pagina = 0) {
+  carregarPratos(pagina = 0, codigo: number) {
+    this.codigo = codigo;
     this.filtro.pagina = pagina;
-
-    this.clienteService.pesquisar(this.filtro)
-      .then(resultado => {
-        this.totalRegistros = resultado.total;
-        this.pratos = resultado.pratos;
-      })
-      .catch(erro => this.errorHandler.handle(erro));
+    this.clienteService.buscarPratosPorCodigoCozinheira(this.filtro, codigo)
+    .then(resultado => {
+      this.totalRegistros = resultado.total;
+      this.pratos = resultado.pratos;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
+
 
   aoMudarPagina(event: LazyLoadEvent) {
     const pagina = event.first / event.rows;
-    this.pesquisar(pagina);
+    this.carregarPratos(pagina, this.codigo);
   }
 
   adicionarQuantidade(prato) {
@@ -64,16 +74,16 @@ export class ClientePesquisaComponent implements OnInit {
 
   adicionar(prato: any) {
     for(var i = 0; i < this.carrinhoCompras.length; i++) {
+      console.log(this.carrinhoCompras);
       if (this.carrinhoCompras[i].codigo === prato.codigo) {
-          alert("Esse prato já foi adicionado!");
-          return;
+        alert("Esse prato já foi adicionado!");
+        return;
       }
     }
     if(prato.quantidade == 0){
       alert("Favor adicionar pelo menos 1 prato.");
       return;
     }
-    prato.status = "";
     prato.cozinheira = new Usuario();
     this.carrinhoCompras.push(prato);
     this.messageService.add({ severity: 'success', detail: 'Prato adicionado ao carrinho de compras!' });
@@ -101,7 +111,7 @@ export class ClientePesquisaComponent implements OnInit {
     this.clienteService.comprar(this.carrinhoCompras)
       .then(() => {
         if (this.grid.first === 0) {
-          this.pesquisar();
+          this.carregarPratos(0, this.codigo);
         } else {
           this.grid.reset();
         }
