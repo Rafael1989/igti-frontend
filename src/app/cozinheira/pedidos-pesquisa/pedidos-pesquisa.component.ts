@@ -4,20 +4,20 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
-import { AuthService } from './../../seguranca/auth.service';
-import { ErrorHandlerService } from './../../core/error-handler.service';
-import { PratoService, PratoFiltro } from './../prato.service';
+import { AuthService } from '../../seguranca/auth.service';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+import { PratoService, PedidosFiltro } from './../prato.service';
 
 @Component({
-  selector: 'app-prato-pesquisa',
-  templateUrl: './prato-pesquisa.component.html',
-  styleUrls: ['./prato-pesquisa.component.css']
+  selector: 'app-pedidos-pesquisa',
+  templateUrl: './pedidos-pesquisa.component.html',
+  styleUrls: ['./pedidos-pesquisa.component.css']
 })
-export class PratoPesquisaComponent implements OnInit {
+export class PedidosPesquisaComponent implements OnInit {
 
   totalRegistros = 0;
-  filtro = new PratoFiltro();
-  pratos = [];
+  filtro = new PedidosFiltro();
+  pedidos = [];
   @ViewChild('tabela') grid: Table;
 
   constructor(
@@ -30,16 +30,16 @@ export class PratoPesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('Pesquisa de Pratos');
+    this.title.setTitle('Pesquisa de pedidos');
   }
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
 
-    this.pratoService.pesquisar(this.filtro)
+    this.pratoService.pesquisarPedidos(this.filtro)
       .then(resultado => {
         this.totalRegistros = resultado.total;
-        this.pratos = resultado.pratos;
+        this.pedidos = resultado.pedidos;
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -49,17 +49,17 @@ export class PratoPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  confirmarExclusao(prato: any) {
+  confirmarPronto(pedido: any) {
     this.confirmation.confirm({
-      message: 'Tem certeza que deseja excluir?',
+      message: 'O pedido está pronto para entrega?',
       accept: () => {
-        this.excluir(prato);
+        this.pronto(pedido);
       }
     });
   }
 
-  excluir(prato: any) {
-    this.pratoService.excluir(prato.codigo)
+  pronto(pedido: any) {
+    this.pratoService.pronto(pedido)
       .then(() => {
         if (this.grid.first === 0) {
           this.pesquisar();
@@ -67,9 +67,10 @@ export class PratoPesquisaComponent implements OnInit {
           this.grid.reset();
         }
 
-        this.messageService.add({ severity: 'success', detail: 'Prato excluído com sucesso!' });
+        this.messageService.add({ severity: 'success', detail: 'Pedido está pronto para entrega com sucesso!' });
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
+
 
 }

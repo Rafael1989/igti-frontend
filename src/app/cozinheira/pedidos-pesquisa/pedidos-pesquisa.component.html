@@ -1,0 +1,54 @@
+<div class="container">
+
+
+  <div class="ui-g-12">
+    <h1>Pedidos</h1>
+  </div>
+
+
+  <div class="ui-g-12">
+    <p-table [value]="pedidos" [responsive]="true" class="teste"
+        [paginator]="true" [rows]="filtro.itensPorPagina"
+        [lazy]="true" [totalRecords]="totalRegistros"
+        (onLazyLoad)="aoMudarPagina($event)"
+        #tabela>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">
+            Nenhum pedido encontrado
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="col-valor-header">Código</th>
+          <th class="col-valor-header">Status</th>
+          <th class="col-valor-header">Entregador</th>
+          <th class="col-valor-header">Pratos</th>
+          <th class="col-valor-header"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-pedido>
+        <tr>
+          <td class="col-valor" >
+            {{ pedido.codigo }}
+          </td>
+          <td class="col-valor">
+            {{ pedido.status }}
+          </td>
+          <td class="col-valor">
+            {{ pedido.entregador }}
+          </td>
+          <td class="col-valor">
+            <ul>
+              <li *ngFor="let prato of pedido.pratos; let index = index">{{ prato.descricao }}</li>
+            </ul>
+          </td>
+          <td>
+            <button pButton icon="pi pi-check-square" pTooltip="Pronto" tooltipPosition="top" (click)="confirmarPronto(pedido)" [disabled]="pedido.status !== 'COMPRADO'"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

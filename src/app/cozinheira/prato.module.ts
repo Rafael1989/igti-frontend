@@ -19,6 +19,8 @@ import { PratoRoutingModule } from './prato-routing.module';
 import { SharedModule } from './../shared/shared.module';
 import { PratoPesquisaComponent } from './prato-pesquisa/prato-pesquisa.component';
 import { PratoCadastroComponent } from './prato-cadastro/prato-cadastro.component';
+import { PedidosPesquisaComponent } from './pedidos-pesquisa/pedidos-pesquisa.component';
+import { VendasPesquisaComponent } from './vendas-pesquisa/vendas-pesquisa.component';
 
 @NgModule({
   imports: [
@@ -43,7 +45,9 @@ import { PratoCadastroComponent } from './prato-cadastro/prato-cadastro.componen
   ],
   declarations: [
     PratoCadastroComponent,
-    PratoPesquisaComponent
+    PratoPesquisaComponent,
+    PedidosPesquisaComponent,
+    VendasPesquisaComponent
   ],
   exports: []
 })

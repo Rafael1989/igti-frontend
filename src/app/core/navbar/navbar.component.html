@@ -20,6 +20,12 @@
       *ngIf="auth.temPermissao('ROLE_CLIENTE')"><a routerLink="/cliente/pratos/pedidos">Pedidos</a></li>
     <li class="navbar-menuitem" routerLinkActive="ativo"
       *ngIf="auth.temPermissao('ROLE_CLIENTE')"><a routerLink="/cliente/pratos/vendas">Vendas</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo"
+      *ngIf="auth.temPermissao('ROLE_COZINHEIRA')"><a routerLink="/pratos/pedidos">Pedidos</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo"
+      *ngIf="auth.temPermissao('ROLE_COZINHEIRA')"><a routerLink="/pratos/vendas">Vendas</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo"
+      *ngIf="auth.temPermissao('ROLE_COZINHEIRA')"><a routerLink="/pratos">Pratos</a></li>
     <li class="navbar-menuitem"><a href="javascript:;" (click)="logout()">Logout</a></li>
   </ul>
 

@@ -4,11 +4,23 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { environment } from './../../environments/environment';
-import { Prato, Usuario } from './../core/model';
+import { Pedido, Prato, Usuario } from './../core/model';
 import { AuthService } from './../seguranca/auth.service';
 
 export class PratoFiltro {
   descricao: string;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
+export class PedidosFiltro {
+  codigo: number;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
+export class VendasFiltro {
+  codigo: number;
   pagina = 0;
   itensPorPagina = 5;
 }
@@ -45,6 +57,48 @@ export class PratoService {
       });
   }
 
+  pesquisarPedidos(filtro: PedidosFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    if (filtro.codigo) {
+      params = params.set('codigo', ""+filtro.codigo);
+    }
+
+    return this.http.get(`${this.pratosUrl}/pedidos/${this.auth.jwtPayload?.codigo}?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const pedidos = response['content'];
+
+        const resultado = {
+          pedidos,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
+  }
+
+  pesquisarVendas(filtro: VendasFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    return this.http.get(`${this.pratosUrl}/vendas/${this.auth.jwtPayload?.codigo}?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const vendas = response['content'];
+
+        const resultado = {
+          vendas,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
+  }
+
   excluir(codigo: number): Promise<void> {
     return this.http.delete(`${this.pratosUrl}/${codigo}`)
       .toPromise()
@@ -58,14 +112,13 @@ export class PratoService {
       .toPromise();
   }
 
-  pronto(prato: Prato): Promise<Prato> {
-    prato.cozinheira = new Usuario();
-    return this.http.put<Prato>(`${this.pratosUrl}/pronto/${prato.codigo}`, prato)
+  pronto(pedido: Pedido): Promise<Pedido> {
+    return this.http.put<Pedido>(`${this.pratosUrl}/pronto/${pedido.codigo}`, pedido)
       .toPromise()
       .then(response => {
-        const pratoAlterado = response;
+        const pedidoAlterado = response;
 
-        return pratoAlterado;
+        return pedidoAlterado;
       });
   }
 
