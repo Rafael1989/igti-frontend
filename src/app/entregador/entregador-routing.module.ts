@@ -2,12 +2,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AuthGuard } from '../seguranca/auth.guard';
-import { EntregadorPesquisaComponent } from './entregador-pesquisa/entregador-pesquisa.component';
+import { EntregadorPedidosPesquisaComponent } from './pedidos-pesquisa/pedidos-pesquisa.component';
+import { EntregadorVendasPesquisaComponent } from './vendas-pesquisa/vendas-pesquisa.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: EntregadorPesquisaComponent,
+    component: EntregadorPedidosPesquisaComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ENTREGADOR'] }
+  },
+  {
+    path: 'vendas',
+    component: EntregadorVendasPesquisaComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_ENTREGADOR'] }
   }

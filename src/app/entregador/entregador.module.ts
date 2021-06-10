@@ -16,7 +16,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { EntregadorRoutingModule } from './entregador-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { EntregadorPesquisaComponent } from './entregador-pesquisa/entregador-pesquisa.component';
+import { EntregadorPedidosPesquisaComponent } from './pedidos-pesquisa/pedidos-pesquisa.component';
+import { EntregadorVendasPesquisaComponent } from './vendas-pesquisa/vendas-pesquisa.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { EntregadorPesquisaComponent } from './entregador-pesquisa/entregador-pe
     EntregadorRoutingModule
   ],
   declarations: [
-    EntregadorPesquisaComponent
+    EntregadorPedidosPesquisaComponent,
+    EntregadorVendasPesquisaComponent
   ],
   exports: []
 })

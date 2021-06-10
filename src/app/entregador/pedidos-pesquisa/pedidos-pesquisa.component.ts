@@ -6,18 +6,18 @@ import { Table } from 'primeng/table';
 
 import { AuthService } from '../../seguranca/auth.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
-import { EntregadorService, EntregadorFiltro } from '../entregador.service';
+import { EntregadorService, PedidosFiltro } from '../entregador.service';
 
 @Component({
-  selector: 'app-entregador-pesquisa',
-  templateUrl: './entregador-pesquisa.component.html',
-  styleUrls: ['./entregador-pesquisa.component.css']
+  selector: 'app-pedidos-pesquisa',
+  templateUrl: './pedidos-pesquisa.component.html',
+  styleUrls: ['./pedidos-pesquisa.component.css']
 })
-export class EntregadorPesquisaComponent implements OnInit {
+export class EntregadorPedidosPesquisaComponent implements OnInit {
 
   totalRegistros = 0;
-  filtro = new EntregadorFiltro();
-  pratos = [];
+  filtro = new PedidosFiltro();
+  pedidos = [];
   @ViewChild('tabela') grid: Table;
 
   constructor(
@@ -30,16 +30,16 @@ export class EntregadorPesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('Pesquisa de Pratos');
+    this.title.setTitle('Pesquisa de pedidos');
   }
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
 
-    this.entregadorService.pesquisar(this.filtro)
+    this.entregadorService.pesquisarPedidos(this.filtro)
       .then(resultado => {
         this.totalRegistros = resultado.total;
-        this.pratos = resultado.pratos;
+        this.pedidos = resultado.pedidos;
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -49,26 +49,26 @@ export class EntregadorPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  confirmarEntrega(prato: any) {
+  confirmarEntrega(pedido: any) {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja entregar?',
       accept: () => {
-        this.entregar(prato);
+        this.entregar(pedido);
       }
     });
   }
 
-  confirmarPagamento(prato: any) {
+  confirmarPagamento(pedido: any) {
     this.confirmation.confirm({
       message: 'A encomenda foi paga?',
       accept: () => {
-        this.pagar(prato);
+        this.pagar(pedido);
       }
     });
   }
 
-  entregar(prato: any) {
-    this.entregadorService.entregar(prato)
+  entregar(pedido: any) {
+    this.entregadorService.entregar(pedido)
       .then(() => {
         if (this.grid.first === 0) {
           this.pesquisar();
@@ -81,8 +81,8 @@ export class EntregadorPesquisaComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  pagar(prato: any) {
-    this.entregadorService.pagar(prato)
+  pagar(pedido: any) {
+    this.entregadorService.pagar(pedido)
       .then(() => {
         if (this.grid.first === 0) {
           this.pesquisar();
@@ -90,7 +90,7 @@ export class EntregadorPesquisaComponent implements OnInit {
           this.grid.reset();
         }
 
-        this.messageService.add({ severity: 'success', detail: 'Prato pago com sucesso!' });
+        this.messageService.add({ severity: 'success', detail: 'Pedido pago com sucesso!' });
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
