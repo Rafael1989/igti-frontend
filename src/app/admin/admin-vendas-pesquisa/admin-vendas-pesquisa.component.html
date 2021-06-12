@@ -1,0 +1,54 @@
+<div class="container">
+
+  <div class="ui-g-12">
+    <h1>Vendas</h1>
+  </div>
+
+  <div class="ui-g-12">
+    <p-table [value]="vendas" [responsive]="true" class="teste"
+        [paginator]="true" [rows]="filtro.itensPorPagina"
+        [lazy]="true" [totalRecords]="totalRegistros"
+        (onLazyLoad)="aoMudarPagina($event)"
+        #tabela>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">
+            Nenhuma venda encontrada
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="col-valor-header">Código do pedido</th>
+          <th class="col-valor-header">Prato</th>
+          <th class="col-valor-header">Quantidade</th>
+          <th class="col-valor-header">Valor</th>
+          <th class="col-valor-header">Entregador</th>
+          <th class="col-valor-header">Cozinheira</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-venda>
+        <tr>
+          <td class="col-valor" >
+            {{ venda.pedido.codigo }}
+          </td>
+          <td class="col-valor">
+            {{ venda.prato.descricao }}
+          </td>
+          <td class="col-valor">
+            {{ venda.quantidade }}
+          </td>
+          <td class="col-valor">
+            {{ venda.valor }}
+          </td>
+          <td class="col-valor">
+            {{ venda.entregador?.nome }}
+          </td>
+          <td class="col-valor">
+            {{ venda.cozinheira?.nome }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

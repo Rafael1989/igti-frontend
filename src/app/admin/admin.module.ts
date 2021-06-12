@@ -21,6 +21,8 @@ import { AdminPratoPesquisaComponent } from './admin-prato-pesquisa/admin-prato-
 import { AdminPratoCadastroComponent } from './admin-prato-cadastro/admin-prato-cadastro.component';
 import { AdminUsuarioPesquisaComponent } from './admin-usuario-pesquisa/admin-usuario-pesquisa.component';
 import { AdminUsuarioCadastroComponent } from './admin-usuario-cadastro/admin-usuario-cadastro.component';
+import { AdminPedidosPesquisaComponent } from './admin-pedidos-pesquisa/admin-pedidos-pesquisa.component';
+import { AdminVendasPesquisaComponent } from './admin-vendas-pesquisa/admin-vendas-pesquisa.component';
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import { AdminUsuarioCadastroComponent } from './admin-usuario-cadastro/admin-us
     AdminPratoCadastroComponent,
     AdminPratoPesquisaComponent,
     AdminUsuarioCadastroComponent,
-    AdminUsuarioPesquisaComponent
+    AdminUsuarioPesquisaComponent,
+    AdminPedidosPesquisaComponent,
+    AdminVendasPesquisaComponent
   ],
   exports: []
 })

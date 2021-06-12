@@ -3,7 +3,7 @@
   <form autocomplete="off" (ngSubmit)="pesquisar()">
 
     <div class="ui-g-12">
-      <h1>SaveThePlanet</h1>
+      <h1>Usuários</h1>
     </div>
 
     <div class="ui-g-12">
@@ -83,7 +83,6 @@
           <td class="col-acoes">
             <span class="p-column-title"></span>
             <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/admin/usuarios', usuario.codigo]"></a>
-            <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(usuario)"></button>
           </td>
         </tr>
       </ng-template>

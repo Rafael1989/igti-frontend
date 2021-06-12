@@ -14,7 +14,7 @@
         #tabela>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="4">
+          <td colspan="5">
             Nenhum pedido encontrado
           </td>
         </tr>
@@ -23,6 +23,7 @@
         <tr>
           <th class="col-valor-header">Código</th>
           <th class="col-valor-header">Status</th>
+          <th class="col-valor-header">Cliente</th>
           <th class="col-valor-header">Entregador</th>
           <th class="col-valor-header">Pratos</th>
         </tr>
@@ -34,6 +35,9 @@
           </td>
           <td class="col-valor">
             {{ pedido.status }}
+          </td>
+          <td class="col-valor">
+            {{ pedido.cliente?.nome }}
           </td>
           <td class="col-valor">
             {{ pedido.entregador?.nome }}

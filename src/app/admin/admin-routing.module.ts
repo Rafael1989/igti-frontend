@@ -6,6 +6,8 @@ import { AdminPratoCadastroComponent } from './admin-prato-cadastro/admin-prato-
 import { AdminPratoPesquisaComponent } from './admin-prato-pesquisa/admin-prato-pesquisa.component';
 import { AdminUsuarioCadastroComponent } from './admin-usuario-cadastro/admin-usuario-cadastro.component';
 import { AdminUsuarioPesquisaComponent } from './admin-usuario-pesquisa/admin-usuario-pesquisa.component';
+import { AdminPedidosPesquisaComponent } from './admin-pedidos-pesquisa/admin-pedidos-pesquisa.component';
+import { AdminVendasPesquisaComponent } from './admin-vendas-pesquisa/admin-vendas-pesquisa.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,18 @@ const routes: Routes = [
   {
     path: 'usuarios/:codigo',
     component: AdminUsuarioCadastroComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] }
+  },
+  {
+    path: 'pedidos',
+    component: AdminPedidosPesquisaComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] }
+  },
+  {
+    path: 'vendas',
+    component: AdminVendasPesquisaComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_ADMIN'] }
   }

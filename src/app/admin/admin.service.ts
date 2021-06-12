@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { environment } from '../../environments/environment';
-import { Prato, Usuario } from '../core/model';
+import { Pedido, Prato, Usuario } from '../core/model';
 import { AuthService } from '../seguranca/auth.service';
 
 export class AdminPratoFiltro {
@@ -19,15 +19,31 @@ export class AdminUsuarioFiltro {
   itensPorPagina = 5;
 }
 
+export class AdminPedidosFiltro {
+  codigo: number;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
+export class AdminVendasFiltro {
+  codigo: number;
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
 @Injectable()
 export class AdminService {
 
   pratosUrl: string;
   usuariosUrl: string;
+  pedidosUrl: string;
+  vendasUrl: string;
 
   constructor(private http: HttpClient, private auth: AuthService) {
     this.pratosUrl = `${environment.apiUrl}/admin/pratos`;
     this.usuariosUrl = `${environment.apiUrl}/admin/usuarios`;
+    this.pedidosUrl = `${environment.apiUrl}/admin/pedidos`;
+    this.vendasUrl = `${environment.apiUrl}/admin/vendas`;
   }
 
   pesquisar(filtro: AdminPratoFiltro): Promise<any> {
@@ -80,6 +96,16 @@ export class AdminService {
       });
   }
 
+  buscarPorCodigoPedido(codigo: number): Promise<Pedido> {
+    return this.http.get<Pedido>(`${this.pedidosUrl}/${codigo}`)
+      .toPromise()
+      .then(response => {
+        const pedido = response;
+
+        return pedido;
+      });
+  }
+
   pesquisarUsuario(filtro: AdminUsuarioFiltro): Promise<any> {
     let params = new HttpParams()
       .set('page', filtro.pagina.toString())
@@ -119,6 +145,16 @@ export class AdminService {
       });
   }
 
+  atualizarPedido(pedido: Pedido): Promise<Pedido> {
+    return this.http.put<Pedido>(`${this.pedidosUrl}/${pedido.codigo}`, pedido)
+      .toPromise()
+      .then(response => {
+        const pedidoAlterado = response;
+
+        return pedidoAlterado;
+      });
+  }
+
   buscarPorCodigoUsuario(codigo: number): Promise<Usuario> {
     return this.http.get<Usuario>(`${this.usuariosUrl}/${codigo}`)
       .toPromise()
@@ -126,6 +162,48 @@ export class AdminService {
         const usuario = response;
 
         return usuario;
+      });
+  }
+
+  pesquisarPedidos(filtro: AdminPedidosFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    if (filtro.codigo) {
+      params = params.set('codigo', ""+filtro.codigo);
+    }
+
+    return this.http.get(`${this.pedidosUrl}?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const pedidos = response['content'];
+
+        const resultado = {
+          pedidos,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
+  }
+
+  pesquisarVendas(filtro: AdminVendasFiltro): Promise<any> {
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString())
+      .set('size', filtro.itensPorPagina.toString());
+
+    return this.http.get(`${this.vendasUrl}?resumo`, { params })
+      .toPromise()
+      .then(response => {
+        const vendas = response['content'];
+
+        const resultado = {
+          vendas,
+          total: response['totalElements']
+        };
+
+        return resultado;
       });
   }
 
