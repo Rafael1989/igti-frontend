@@ -27,6 +27,8 @@
           <th class="col-valor-header">Pratos</th>
           <th class="col-valor-header">Cozinheira</th>
           <th class="col-valor-header">Endereço</th>
+          <th class="col-valor-header">Cliente</th>
+          <th class="col-valor-header">Endereço</th>
           <th class="col-valor-header"></th>
         </tr>
       </ng-template>
@@ -52,8 +54,14 @@
           <td class="col-valor">
             {{ pedido.pratos[0].cozinheira.rua }} {{ pedido.pratos[0].cozinheira.numero }} {{ pedido.pratos[0].cozinheira.complemento }}
           </td>
+          <td class="col-valor">
+            {{ pedido.cliente.nome }}
+          </td>
+          <td class="col-valor">
+            {{ pedido.cliente.rua }} {{ pedido.cliente.numero }} {{ pedido.cliente.complemento }}
+          </td>
           <td>
-            <button pButton icon="pi pi-home" pTooltip="Entregar" tooltipPosition="top" (click)="confirmarEntrega(pedido)" [disabled]="pedido.status === 'ENTREGANDO'"></button>
+            <button pButton icon="pi pi-home" pTooltip="Entregar" tooltipPosition="top" (click)="confirmarEntrega(pedido)" [disabled]="pedido.status !== 'PRONTO'"></button>
             <button pButton icon="pi pi-dollar" pTooltip="Pagar" tooltipPosition="top" (click)="confirmarPagamento(pedido)" [disabled]="pedido.status !== 'ENTREGANDO'"></button>
           </td>
         </tr>
