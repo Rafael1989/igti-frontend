@@ -1,72 +1,103 @@
-<div class="container" style="max-width: 400px; margin: auto">
+<div class="container" style="margin: auto">
     <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
   
       <div class="ui-g ui-fluid">
-        <div class="p-col-12">
+        <div class="p-col-12" style="width: 100%;">
           <h1>SaveThePlanet</h1>
-        </div>
-  
-        <div class="ui-g-12">
-          <input pInputText type="text" name="nome" placeholder="Nome" formControlName="nome"
-            required #nome>
+          <a routerLink="/login" style="color: #1E90FF;position: absolute;
+          top: 141px;
+          margin-left: 674px;">Login</a>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="email" name="email" placeholder="E-mail" formControlName="email"
+        <div class="ui-g-6">
+          <label for="nome">Nome
+            <input pInputText id="nome" type="text" name="nome" placeholder="Nome" formControlName="nome"
             required #nome>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="password" name="senha" placeholder="Senha" formControlName="senha"
+        <div class="ui-g-6">
+          <label for="email">E-mail
+            <input pInputText id="email" type="email" name="email" placeholder="E-mail" formControlName="email"
             required #nome>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="cpf" placeholder="Cpf" formControlName="cpf"
+        <div class="ui-g-6">
+          <label for="senha">Senha
+            <input pInputText type="password" name="senha" placeholder="Senha" formControlName="senha"
+            required #nome>
+          </label>
+        </div>
+
+        <div class="ui-g-6">
+          <label for="cpf">CPF
+            <input pInputText type="text" name="cpf" placeholder="Cpf" formControlName="cpf"
             required #cpf>
+          </label>
         </div>
 
-        <div class="ui-g-12" formGroupName="perfil">
-          <p-dropdown name="perfil" [options]="perfis" [filter]="true" placeholder="Selecione" formControlName="codigo" required></p-dropdown>
+        <div class="ui-g-6" formGroupName="perfil">
+          <label for="perfil">Perfil
+            <p-dropdown name="perfil" [options]="perfis" [filter]="true" placeholder="Selecione" formControlName="codigo" required></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <p-dropdown placeholder="Selecione" [filter]="true" [options]="paises" name="paisSelecionado" #pais (onChange)="carregarEstados(pais.value)" required></p-dropdown>
+        <div class="ui-g-6">
+          <label for="pais">País
+            <p-dropdown placeholder="Selecione" [filter]="true" [options]="paises" name="paisSelecionado" #pais (onChange)="carregarEstados(pais.value)" required></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <p-dropdown placeholder="Selecione" [filter]="true" [options]="estados" name="estadoSelecionado" (onChange)="carregarCidades(estado.value)" #estado required [disabled]="!pais.value"></p-dropdown>
+        <div class="ui-g-6">
+          <label for="estado">Estado
+            <p-dropdown placeholder="Selecione" [filter]="true" [options]="estados" name="estadoSelecionado" (onChange)="carregarCidades(estado.value)" #estado required [disabled]="!pais.value"></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12" formGroupName="cidade">
-          <p-dropdown placeholder="Selecione" [filter]="true" [options]="cidades" formControlName="codigo" name="cidade" required [disabled]="!estado.value"></p-dropdown>
+        <div class="ui-g-6" formGroupName="cidade">
+          <label for="cidade">Cidade
+            <p-dropdown placeholder="Selecione" [filter]="true" [options]="cidades" formControlName="codigo" name="cidade" required [disabled]="!estado.value"></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="bairro" placeholder="Bairro" formControlName="bairro"
+        <div class="ui-g-6">
+          <label for="bairro">Bairro
+            <input pInputText type="text" name="bairro" placeholder="Bairro" formControlName="bairro"
             required #bairro>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="rua" placeholder="Rua" formControlName="rua"
+        <div class="ui-g-6">
+          <label for="rua">Rua
+            <input pInputText type="text" name="rua" placeholder="Rua" formControlName="rua"
             required #rua>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="numero" placeholder="Número" formControlName="numero"
+        <div class="ui-g-6">
+          <label for="numero">Número
+            <input pInputText type="text" name="numero" placeholder="Número" formControlName="numero"
             required #numero>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="complemento" placeholder="Complemento" formControlName="complemento"
+        <div class="ui-g-6">
+          <label for="complemento">Complemento
+            <input pInputText type="text" name="complemento" placeholder="Complemento" formControlName="complemento"
             required #complemento>
+          </label>
         </div>
 
         <div class="ui-g-12">
-          <button pButton type="submit" label="Register"></button>
-          <button style="margin-top: 10px;" pButton type="button" label="New" class="p-button-info" (click)="novo()"></button>
-          <a routerLink="/login">Login</a>
-        </div>
+          <div class="ui-g-6" style="margin-top: 10px;">
+            <button pButton type="submit" style="background-color: #1E90FF;" label="Cadastrar"></button>
+          </div>
+          <div class="ui-g-6">
+            <button style="margin-top: 10px; background-color: #1E90FF;" pButton type="button" label="Reset" class="p-button-info" (click)="novo()"></button>
+          </div>
+      </div>
+        
       </div>
   
     </form>

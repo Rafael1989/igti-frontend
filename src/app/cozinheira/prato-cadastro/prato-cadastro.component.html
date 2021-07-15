@@ -2,33 +2,39 @@
   <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
     <div class="ui-g ui-fluid">
       <div class="ui-g-12">
-        <h1>SaveThePlanet</h1>
+        <h1>Prato</h1>
       </div>
 
       <div class="ui-g-12">
-        <input placeholder="Prato" pInputText type="text" name="descricao"
+        <label for="prato">Prato
+          <input placeholder="Prato" id="prato" pInputText type="text" name="descricao"
           formControlName="descricao">
+        </label>
 
         <app-message [control]="formulario.get('descricao')" error="obrigatoriedade"
           text="Informe uma descrição"></app-message>
       </div>
 
       <div class="ui-g-12">
-        <input placeholder="Preço" pInputText type="text" name="valor" placeholder="0,00"
+        <label for="preco">Preço
+          <input placeholder="Preço" pInputText type="text" name="valor" placeholder="0,00"
           currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
           formControlName="valor">
+        </label>
       </div>
 
       <div class="ui-g-12">
-        <input placeholder="Quantidade" pInputText type="text" name="quantidade" formControlName="quantidade">
+        <label for="quantidade">Quantidade
+          <input placeholder="Quantidade" pInputText type="text" name="quantidade" formControlName="quantidade">
+        </label>
 
         <app-message [control]="formulario.get('quantidade')" error="obrigatoriedade" text="Informe uma descrição"></app-message>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Save"></button>
-        <button style="margin-top: 10px;" pButton type="button" label="New" class="p-button-info" (click)="novo()"></button>
-        <a routerLink="/pratos">Back to List</a>
+        <button pButton type="submit" label="Salvar"></button>
+        <button style="margin-top: 10px;" pButton type="button" label="Novo" class="p-button-info" (click)="novo()"></button>
+        <a routerLink="/pratos">Lista de Pratos</a>
       </div>
     </div>
   </form>

@@ -1,4 +1,4 @@
-<div class="container" style="max-width: 400px; margin: auto">
+<div class="container" style="max-width: 400px; margin: auto;">
   <form autocomplete="off" #f="ngForm">
     <div class="ui-g ui-fluid">
 
@@ -7,19 +7,23 @@
       </div>
 
       <div class="ui-g-12">
-        <input pInputText type="email" name="usuario" placeholder="E-mail"
+        <label for="email">E-mail
+          <input pInputText type="email" id="email" name="usuario" placeholder="E-mail"
           ngModel required #usuario>
+        </label>
       </div>
 
       <div class="ui-g-12">
-        <input pInputText type="password" name="senha" placeholder="Senha"
+        <label for="senha">Senha
+          <input pInputText type="password" id="senha" name="senha" placeholder="Senha"
           ngModel required #senha>
+        </label>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Login" [disabled]="!f.valid"
+        <button pButton style="background-color: #1E90FF;" type="submit" label="Login" [disabled]="!f.valid"
           (click)="login(usuario.value, senha.value); senha.value = '';"></button>
-          <a routerLink="/usuarios">Register</a>
+          <a routerLink="/usuarios" style="color: #1E90FF;">Cadastrar</a>
       </div>
 
     </div>

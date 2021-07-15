@@ -6,28 +6,34 @@
       </div>
 
       <div class="ui-g-12">
-        <input placeholder="Prato" pInputText type="text" name="descricao"
+        <label for="prato">Prato
+          <input placeholder="Prato" id="prato" pInputText type="text" name="descricao"
           formControlName="descricao">
+        </label>
 
         <app-message [control]="formulario.get('descricao')" error="obrigatoriedade"
           text="Informe uma descrição"></app-message>
       </div>
 
       <div class="ui-g-12">
-        <input placeholder="Preço" pInputText type="text" name="valor" placeholder="0,00"
+        <label for="preco">Preço
+          <input placeholder="Preço" id="preco" pInputText type="text" name="valor" placeholder="0,00"
           currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
           formControlName="valor">
+        </label>
       </div>
 
       <div class="ui-g-12">
-        <input placeholder="Quantidade" pInputText type="text" name="quantidade" formControlName="quantidade">
+        <label for="quantidade">Quantidade
+          <input placeholder="Quantidade" pInputText type="text" name="quantidade" formControlName="quantidade">
+        </label>
 
         <app-message [control]="formulario.get('quantidade')" error="obrigatoriedade" text="Informe uma descrição"></app-message>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Save"></button>
-        <a routerLink="/admin/pratos">Back to List</a>
+        <button pButton type="submit" label="Salvar"></button>
+        <a routerLink="/admin/pratos">Lista de Pratos</a>
       </div>
     </div>
   </form>

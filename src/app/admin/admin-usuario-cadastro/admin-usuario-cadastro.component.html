@@ -1,65 +1,89 @@
-<div class="container" style="max-width: 400px; margin: auto">
+<div class="container" style="margin: auto">
     <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
   
       <div class="ui-g ui-fluid">
-        <div class="p-col-12">
+        <div class="p-col-12" style="width: 100%;">
           <h1>Usuários</h1>
+          <a routerLink="/admin/usuarios" style="color: #1E90FF;position: absolute;
+          top: 201px;
+          margin-left: 735px;">Lista de Usuários</a>
         </div>
   
-        <div class="ui-g-12">
-          <input pInputText type="text" name="nome" placeholder="Nome" formControlName="nome"
+        <div class="ui-g-6">
+          <label for="nome">Nome
+            <input pInputText type="text" id="nome" name="nome" placeholder="Nome" formControlName="nome"
             required #nome>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="email" name="email" placeholder="E-mail" formControlName="email"
+        <div class="ui-g-6">
+          <label for="email">E-mail
+            <input pInputText type="email" id="email" name="email" placeholder="E-mail" formControlName="email"
             required #nome>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="cpf" placeholder="Cpf" formControlName="cpf"
+        <div class="ui-g-6">
+          <label for="cpf">CPF
+            <input pInputText type="text" id="cpf" name="cpf" placeholder="Cpf" formControlName="cpf"
             required #cpf>
+          </label>
         </div>
 
-        <div class="ui-g-12" formGroupName="perfil">
-          <p-dropdown name="perfil" [options]="perfis" dataKey="perfil" placeholder="Selecione" formControlName="codigo"></p-dropdown>
+        <div class="ui-g-6" formGroupName="perfil">
+          <label for="perfil">Perfil
+            <p-dropdown name="perfil" [options]="perfis" dataKey="perfil" placeholder="Selecione" formControlName="codigo"></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <p-dropdown placeholder="Selecione" [filter]="true" dataKey="cidade.estado.pais" [options]="paises" name="paisSelecionado" #pais (onChange)="carregarEstados(pais.value)" required></p-dropdown>
+        <div class="ui-g-6">
+          <label for="pais">País
+            <p-dropdown placeholder="Selecione" [filter]="true" dataKey="cidade.estado.pais" [options]="paises" name="paisSelecionado" #pais (onChange)="carregarEstados(pais.value)" required></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <p-dropdown placeholder="Selecione" [filter]="true"  dataKey="cidade.estado" [options]="estados" name="estadoSelecionado" (onChange)="carregarCidades(estado.value)" #estado required></p-dropdown>
+        <div class="ui-g-6">
+          <label for="estado">Estado
+            <p-dropdown placeholder="Selecione" [filter]="true"  dataKey="cidade.estado" [options]="estados" name="estadoSelecionado" (onChange)="carregarCidades(estado.value)" #estado required></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12" formGroupName="cidade">
-          <p-dropdown placeholder="Selecione" [filter]="true" dataKey="cidade" [options]="cidades" formControlName="codigo" name="cidade" required></p-dropdown>
+        <div class="ui-g-6" formGroupName="cidade">
+          <label for="cidade">Cidade
+            <p-dropdown placeholder="Selecione" [filter]="true" dataKey="cidade" [options]="cidades" formControlName="codigo" name="cidade" required></p-dropdown>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="bairro" placeholder="Bairro" formControlName="bairro"
+        <div class="ui-g-6">
+          <label for="bairro">Bairro
+            <input pInputText type="text" name="bairro" placeholder="Bairro" formControlName="bairro"
             required #bairro>
+          </label>
         </div>
 
         <div class="ui-g-12">
-          <input pInputText type="text" name="rua" placeholder="Rua" formControlName="rua"
+          <label for="rua">Rua
+            <input pInputText type="text" id="rua" name="rua" placeholder="Rua" formControlName="rua"
             required #rua>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="numero" placeholder="Número" formControlName="numero"
+        <div class="ui-g-6">
+          <label for="numero">Número
+          <input pInputText type="text" id="numero" name="numero" placeholder="Número" formControlName="numero"
             required #numero>
+          </label>
         </div>
 
-        <div class="ui-g-12">
-          <input pInputText type="text" name="complemento" placeholder="Complemento" formControlName="complemento"
+        <div class="ui-g-6">
+          <label for="complemento">Complemento
+            <input pInputText type="text" name="complemento" placeholder="Complemento" formControlName="complemento"
             required #complemento>
+          </label>
         </div>
 
         <div class="ui-g-12">
-          <button pButton type="submit" label="Save"></button>
-          <a routerLink="/admin/usuarios">Back to List</a>
+          <button pButton type="submit" label="Salvar"></button>
         </div>
       </div>
   
